@@ -7,10 +7,13 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Objects;
 
+// import br.pro.hashi.ensino.desagil.desafio.model.Model;
+
 public class Board {
     private boolean[][] wall;
     private int numRows;
     private int numCols;
+    private boolean[][] dist;
 
 
     public Board(String name) throws IOException {
@@ -34,6 +37,8 @@ public class Board {
 
         wall = new boolean[numRows][numCols];
 
+        dist = new boolean[numRows][numCols];
+
         for (int i = 0; i < numRows; i++) {
 
             // Note que aqui não faz sentido usar strip ou split.
@@ -55,6 +60,12 @@ public class Board {
                         System.err.println("Configuração de tabuleiro deve ter apenas ' ' e '#'");
                         System.exit(1);
                 }
+
+                if (((i + j) / 2) >= ((getNumCols() + getNumRows()) / 2)) {
+                    dist[i][j] = false;
+                } else if (((i + j) / 2) < ((getNumCols() + getNumCols()) / 2)) {
+                    dist[i][j] = true;
+                }
             }
         }
 
@@ -72,5 +83,11 @@ public class Board {
 
     public int getNumCols() {
         return numCols;
+    }
+
+
+    public boolean Manhattan(int row, int col) {
+        System.out.println(dist[row][col]);
+        return dist[row][col];
     }
 }

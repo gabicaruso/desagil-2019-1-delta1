@@ -66,7 +66,12 @@ public class Controller implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         CpuPlayer cpuPlayer = model.getCpuPlayer();
 
-        cpuPlayer.move();
+        if (!model.getBoard().Manhattan(model.getTarget().getRow(), model.getTarget().getCol())) {
+            cpuPlayer.move();
+        }
+        if (model.getBoard().Manhattan(model.getTarget().getRow(), model.getTarget().getCol())) {
+            cpuPlayer.movefast();
+        }
 
         view.repaint();
     }
